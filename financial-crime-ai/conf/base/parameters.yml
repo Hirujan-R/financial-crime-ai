@@ -1,0 +1,79 @@
+# ---------------------------------------------------------------------------
+# IBM AML data
+# ---------------------------------------------------------------------------
+ibm_transactions_path: data/01_raw/ibm/transactions.csv
+ibm_accounts_path: data/01_raw/ibm/accounts.csv
+ibm_alerts_path: data/01_raw/ibm/alerts.csv
+
+# Chronological split (no random shuffling) - mirrors deployment in time.
+train_fraction: 0.70
+val_fraction: 0.15
+val_label: validation
+test_label: test
+
+# ---------------------------------------------------------------------------
+# Model selection
+# ---------------------------------------------------------------------------
+seed: 42
+feature_columns:
+  - tx_amount
+  - tx_amount_log
+  - amount_vs_sender_median
+  - timestamp
+  - sender_activity_count
+  - sender_activity_total
+  - receiver_activity_count
+  - receiver_activity_total
+  - sender_degree_out
+  - sender_degree_in
+  - sender_sum_out
+  - sender_sum_in
+  - sender_net_flow
+  - sender_mean_out
+  - sender_mean_in
+  - sender_pagerank
+  - sender_hub_score
+  - sender_kcore_number
+  - sender_community_size
+  - receiver_degree_out
+  - receiver_degree_in
+  - receiver_sum_out
+  - receiver_sum_in
+  - receiver_net_flow
+  - receiver_mean_out
+  - receiver_mean_in
+  - receiver_pagerank
+  - receiver_hub_score
+  - receiver_kcore_number
+  - receiver_community_size
+  - sender_init_balance_log
+  - sender_behavior_1
+  - sender_behavior_2
+  - sender_behavior_3
+  - sender_behavior_4
+  - sender_behavior_5
+
+model_candidates:
+  - name: logistic_regression
+    type: logreg
+    grid:
+      - {C: 0.1}
+      - {C: 1.0}
+  - name: xgboost
+    type: xgboost
+    grid:
+      - {n_estimators: 200, max_depth: 4, learning_rate: 0.05}
+      - {n_estimators: 400, max_depth: 6, learning_rate: 0.05}
+  - name: neural_network
+    type: mlp
+    grid:
+      - {hidden_layer_sizes: [64]}
+      - {hidden_layer_sizes: [128, 64]}
+
+# ---------------------------------------------------------------------------
+# AMLSim generalisation experiment
+# ---------------------------------------------------------------------------
+amlsim_n_accounts: 3000
+amlsim_n_timestamps: 100
+amlsim_seed: 7
+amlsim_normal_rate: 0.5

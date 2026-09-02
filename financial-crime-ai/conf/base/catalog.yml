@@ -1,0 +1,110 @@
+# ---------------------------------------------------------------------------
+# IBM AML data
+# ---------------------------------------------------------------------------
+ibm_transactions_raw:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/ibm/transactions.csv
+
+ibm_accounts:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/ibm/accounts.csv
+
+ibm_alerts:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/ibm/alerts.csv
+
+split_boundaries:
+  type: pickle.PickleDataset
+  filepath: data/06_reporting/split_boundaries.pkl
+
+train_features:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/train_features.parquet
+
+validation_features:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/validation_features.parquet
+
+test_features:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/test_features.parquet
+
+ibm_account_features:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/ibm_account_features.parquet
+
+# ---------------------------------------------------------------------------
+# Model selection
+# ---------------------------------------------------------------------------
+model_results:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/model_results.parquet
+
+fitted_candidates:
+  type: pickle.PickleDataset
+  filepath: data/04_models/fitted_candidates.pkl
+
+best_model_info:
+  type: pickle.PickleDataset
+  filepath: data/04_models/best_model_info.pkl
+
+test_metrics:
+  type: pandas.CSVDataset
+  filepath: data/06_reporting/test_metrics.csv
+
+test_predictions:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/test_predictions.parquet
+
+# ---------------------------------------------------------------------------
+# AMLSim generalisation experiment
+# ---------------------------------------------------------------------------
+aml_accounts:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/amlsim_accounts.csv
+
+aml_train_transactions:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/amlsim_train.csv
+
+aml_test_transactions:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/amlsim_test.csv
+
+aml_scenario_summary:
+  type: pandas.CSVDataset
+  filepath: data/06_reporting/amlsim_scenario_summary.csv
+
+generalisation_metrics:
+  type: pandas.CSVDataset
+  filepath: data/06_reporting/generalisation_metrics.csv
+
+generalisation_info:
+  type: pickle.PickleDataset
+  filepath: data/04_models/generalisation_info.pkl
+
+# ---------------------------------------------------------------------------
+# Investigation
+# ---------------------------------------------------------------------------
+ibm_account_edges:
+  type: pandas.CSVDataset
+  filepath: data/02_intermediate/ibm_account_edges.csv
+
+investigation_queue:
+  type: pandas.ParquetDataset
+  filepath: data/06_reporting/investigation_queue.parquet
+
+evidence_store:
+  type: pandas.ParquetDataset
+  filepath: data/06_reporting/evidence_store.parquet
+
+similar_case_index:
+  type: pickle.PickleDataset
+  filepath: data/04_models/similar_case_index.pkl
+
+# ---------------------------------------------------------------------------
+# AI investigator / RAG
+# ---------------------------------------------------------------------------
+knowledge_base:
+  type: pickle.PickleDataset
+  filepath: data/04_models/knowledge_base.pkl

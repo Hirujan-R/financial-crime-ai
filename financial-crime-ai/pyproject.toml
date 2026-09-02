@@ -1,0 +1,93 @@
+[build-system]
+requires = [
+    "setuptools",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+requires-python = ">=3.10"
+name = "financial_crime_ai"
+readme = "README.md"
+dynamic = [
+    "version",
+]
+dependencies = [
+    "ipython>=8.10",
+    "jupyterlab>=3.0",
+    "notebook",
+    "kedro~=1.5.0",
+    "kedro-datasets>=2.0",
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "scikit-learn>=1.3",
+    "networkx>=3.0",
+    "xgboost>=2.0",
+    "streamlit>=1.30",
+]
+
+[project.scripts]
+financial-crime-ai = "financial_crime_ai.__main__:main"
+
+[project.entry-points."kedro.hooks"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest-cov>=3,<7",
+    "pytest-mock>=1.7.1, <2.0",
+    "pytest~=7.2",
+    "ruff~=0.12.0",
+]
+
+[tool.setuptools.dynamic.version]
+attr = "financial_crime_ai.__version__"
+
+[tool.setuptools.packages.find]
+where = [
+    "src",
+]
+namespaces = false
+
+[tool.kedro]
+package_name = "financial_crime_ai"
+project_name = "Financial-Crime-AI"
+kedro_init_version = "1.5.0"
+tools = "['Linting', 'Testing', 'Custom Logging']"
+example_pipeline = "False"
+source_dir = "src"
+
+[tool.pytest.ini_options]
+addopts = "--cov-report term-missing --cov src/financial_crime_ai -ra"
+markers = [
+    "integration: integration tests that require `kedro run` outputs",
+]
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+line-length = 88
+show-fixes = true
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+    "F",
+    "W",
+    "E",
+    "I",
+    "UP",
+    "T201",
+]
+ignore = [
+    "E501",
+]
+
+[tool.kedro_telemetry]
+project_id = "b629cc6337554b988ec7b1cfc947d0d3"
